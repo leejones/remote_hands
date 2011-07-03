@@ -1,4 +1,5 @@
 $(function() {
+  // get the current volume
   $.ajax({
     type: 'get', 
     url: 'http://localhost:9494/volume.json', 
