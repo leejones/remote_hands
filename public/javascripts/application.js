@@ -6,7 +6,7 @@ $(function() {
     success: function(data) {
       build_slider({volume: data['volume']})
       }
-    })
+  })
 
   function build_slider(options) {
     // http://jqueryui.com/demos/slider/
