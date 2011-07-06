@@ -2,7 +2,7 @@ $(function() {
   // get the current volume
   $.ajax({
     type: 'get', 
-    url: 'http://localhost:9393/volume/volume.json',
+    url: '/volume/volume.json',
     dataType: 'jsonp', 
     success: function(data) {
       build_slider({volume: data['volume']})
@@ -23,7 +23,7 @@ $(function() {
   		},
   		change: function( event, ui ) {
         // triggered on slide stop, or if the value is changed programmatically
-        // TODO: update system volume with this value
+        $.post('/volume/volume.json', {volume: ui.value})
   		  $( "#amount" ).val( ui.value );
   		}
   	});
