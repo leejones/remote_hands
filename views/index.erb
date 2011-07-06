@@ -1,8 +1,24 @@
-<div id="volume">
-  <p>
-  	<label for="amount">Volume:</label>
-  	<input type="text" id="amount" style="border:0; color:#D50000; font-weight:bold;" />
-  </p>
+<div id="say-box" class="wrapper">
+  <h1>Say something:</h1>
+  <form action="/say/say" method="post" accept-charset="utf-8" autocomplete="off">
+      <input type="text" name="phrase" class="zomg"/><br/>
+  </form>
+</div>
 
-  <div id="slider-vertical" style="height:200px;"></div>
+<div class="wrapper">
+
+  <div id="volume">
+    <p>
+    	<label for="amount">Volume:</label>
+    	<input type="text" id="amount" style="border:0; color:#D50000; font-weight:bold;" />
+    </p>
+
+    <div id="slider-vertical" style="height:200px;"></div>
+  </div>
+
+  <div id="history" class="wrapper">
+    <h2>Stuff you said:</h2>
+    <ul></ul>
+  </div>
+
 </div>
