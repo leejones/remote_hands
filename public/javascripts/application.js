@@ -2,7 +2,7 @@ $(function() {
   // get the current volume
   $.ajax({
     type: 'get', 
-    url: 'http://localhost:9494/volume.json', 
+    url: 'http://localhost:9393/volume/volume.json',
     dataType: 'jsonp', 
     success: function(data) {
       build_slider({volume: data['volume']})
