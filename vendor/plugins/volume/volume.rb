@@ -26,7 +26,6 @@ class Volume < Sinatra::Base
   end
   
   post '/volume.json' do
-    `growlnotify --message '#{params[:volume]}'`
     set_volume(params[:volume])
     if callback = params[:callback]
       content_type :js
