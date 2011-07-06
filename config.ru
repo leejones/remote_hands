@@ -3,9 +3,9 @@ require 'bundler'
 
 Bundler.require
 
-use Rack::Static,
-  :urls => ["/images", "/javascripts", "/stylesheets"],
-  :root => "public"
+require 'remotehands'
+require 'vendor/plugins/volume/volume'
 
-require './remotehands'
-run Remotehands
+run Rack::URLMap.new \
+  '/'       => Remotehands,
+  '/volume' => Volume
