@@ -1,32 +1,3 @@
-var remote_hands = {
-  poll_volume: function() {
-    this.get_current_volume(function(data) {
-      $( "#system-volume" ).slider('value', data['volume']);
-    })
-  },
-  get_current_volume: function(callback) {
-    jQuery.ajax({
-      type: 'get', 
-      url: '/volume/volume.json',
-      dataType: 'jsonp', 
-      success: callback
-    })
-  },
-  poll_itunes_volume: function() {
-    this.get_itunes_volume(function(data){
-      $( "#itunes-volume" ).slider('value', data['volume']);
-    })
-  },
-  get_itunes_volume: function(callback) {
-    jQuery.ajax({
-      type: 'get',
-      url: '/itunes.json',
-      dataType: 'jsonp',
-      success: callback
-    })
-  }
-}
-
 jQuery(function($) {
   // get the current volume
   remote_hands.get_current_volume(
@@ -112,3 +83,40 @@ jQuery(function($) {
   setInterval("remote_hands.poll_itunes_volume()", 5500);
   
 });
+
+var remote_hands = {
+  poll_volume: function() {
+    this.get_current_volume(function(data) {
+      var slider_volume = $( "#system-volume" ).slider('value');
+      var system_volume = data['volume'];
+      if (slider_volume != system_volume) {
+        $( "#system-volume" ).slider('value', data['volume']);
+      }
+    })
+  },
+  get_current_volume: function(callback) {
+    jQuery.ajax({
+      type: 'get',
+      url: '/volume/volume.json',
+      dataType: 'jsonp',
+      success: callback
+    })
+  },
+  poll_itunes_volume: function() {
+    this.get_itunes_volume(function(data){
+      var slider_volume = $( "#itunes-volume" ).slider('value');
+      var itunes_volume = data['volume'];
+      if (slider_volume != itunes_volume) {
+        $( "#itunes-volume" ).slider('value', data['volume']);
+      }
+    })
+  },
+  get_itunes_volume: function(callback) {
+    jQuery.ajax({
+      type: 'get',
+      url: '/itunes.json',
+      dataType: 'jsonp',
+      success: callback
+    })
+  }
+}
