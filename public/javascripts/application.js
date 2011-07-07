@@ -77,14 +77,12 @@ jQuery(function($) {
   }
 
   // say
-  $('#history').hide();
-
   $('#say-box form').submit(function() {
     var data=$(this).serialize();
     var content=$("input.zomg").get(0).value;
     $("input.zomg").get(0).value = "";
     $.post('/say/say', data, function() {
-      $('#history').show();
+      $('#history ul li.placeholder').remove();
       $("#history ul").prepend('<li><span>'+content+'</span> | <a href="" class="say-it-again">Say it again.</a></li>');
     });
     return false;
