@@ -25,4 +25,15 @@ class Remotehands < Sinatra::Base
       data.to_json
     end
   end
+
+  post '/itunes.json' do
+    set_itunes_volume(params[:volume])
+    if callback = params[:callback]
+      content_type :js
+      "#{params[:callback]}(#{{:volume => get_itunes_volume}.to_json})"
+    else
+      content_type :json
+      {:volume => get_itunes_volume}.to_json
+    end
+  end
 end
