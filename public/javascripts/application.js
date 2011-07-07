@@ -1,14 +1,25 @@
+var remote_hands = {
+  poll_volume: function() {
+  },
+  get_current_volume: function(callback) {
+    // get the current volume
+    $.ajax({
+      type: 'get', 
+      url: '/volume/volume.json',
+      dataType: 'jsonp', 
+      success: callback
+    })
+  }
+}
+
 $(function() {
   // get the current volume
-  $.ajax({
-    type: 'get', 
-    url: '/volume/volume.json',
-    dataType: 'jsonp', 
-    success: function(data) {
+  remote_hands.get_current_volume(
+    function(data) {
       build_slider({volume: data['volume']})
-      }
-  })
-
+    }
+  );
+  
   function build_slider(options) {
     // http://jqueryui.com/demos/slider/
   	$( "#slider-vertical" ).slider({
@@ -51,5 +62,7 @@ $(function() {
      });
     return false;
   });
-
+  
+  setInterval("remote_hands.poll_volume()", 1000);
+  
 });
