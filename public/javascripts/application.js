@@ -39,6 +39,20 @@ jQuery(function($) {
       })
     }
   );
+
+
+  remote_hands.get_itunes_volume(
+    function(data) {
+      if (data['running'] == true) {
+        build_volume_slider({
+          dom_selector: '#itunes-volume',
+          numeric_volume: '#itunes-volume-value',
+          volume: data['volume'],
+          post_url: '/itunes.json'
+        })        
+      }
+    }
+  );
   
   function build_volume_slider(options) {
     // http://jqueryui.com/demos/slider/
@@ -85,5 +99,6 @@ jQuery(function($) {
   });
   
   setInterval("remote_hands.poll_volume()", 5000);
+  setInterval("remote_hands.poll_itunes_volume()", 5500);
   
 });
