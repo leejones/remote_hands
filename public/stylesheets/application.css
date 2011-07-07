@@ -149,6 +149,10 @@ form.vform p.checkbox label { display: inline; }
 /* Application
 -------------------------------------------------------------- */
 #wrapper { margin: 0 auto; width: 1024px; clear: left;}
-#volume { padding: 10px !important; float: left; width: 49%; }
+#volume, #history { float: left; width: 48%; }
 #volume div.slider { width: 49%; float: left;}
-#history { float: left; width: 49%; }
+
+/* say tweaks */
+
+#say-box input.zomg { margin-bottom: 40px; }
+
