@@ -1,16 +1,27 @@
 var remote_hands = {
   poll_volume: function() {
-    // console.log(jQuery( "#slider-vertical" ));
     this.get_current_volume(function(data) {
-      $( "#slider-vertical" ).slider('value', data['volume']);
+      $( "#system-volume" ).slider('value', data['volume']);
     })
   },
   get_current_volume: function(callback) {
-    // get the current volume
     jQuery.ajax({
       type: 'get', 
       url: '/volume/volume.json',
       dataType: 'jsonp', 
+      success: callback
+    })
+  },
+  poll_itunes_volume: function() {
+    this.get_itunes_volume(function(data){
+      $( "#itunes-volume" ).slider('value', data['volume']);
+    })
+  },
+  get_itunes_volume: function(callback) {
+    jQuery.ajax({
+      type: 'get',
+      url: '/itunes.json',
+      dataType: 'jsonp',
       success: callback
     })
   }
@@ -20,13 +31,18 @@ jQuery(function($) {
   // get the current volume
   remote_hands.get_current_volume(
     function(data) {
-      build_slider({volume: data['volume']})
+      build_volume_slider({
+        dom_selector: '#system-volume',
+        numeric_volume: '#system-volume-value',
+        volume: data['volume'],
+        post_url: '/volume/volume.json'
+      })
     }
   );
   
-  function build_slider(options) {
+  function build_volume_slider(options) {
     // http://jqueryui.com/demos/slider/
-  	$( "#slider-vertical" ).slider({
+    $( options['dom_selector'] ).slider({
   		orientation: "vertical",
   		range: "min",
   		min: 0,
@@ -35,15 +51,15 @@ jQuery(function($) {
   		value: options['volume'],
   		slide: function( event, ui ) {
         // triggered on every mouse move during slide
-  			$( "#amount" ).val( ui.value );
+        $( options['numeric_volume'] ).val( ui.value );
   		},
   		change: function( event, ui ) {
         // triggered on slide stop, or if the value is changed programmatically
-        $.post('/volume/volume.json', {volume: ui.value})
-  		  $( "#amount" ).val( ui.value );
+        $.post(options['post_url'], {volume: ui.value})
+        $( options['numeric_volume'] ).val( ui.value );
   		}
   	});
-  	$( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) ); 
+    $( options['numeric_volume'] ).val( $( options['dom_selector'] ).slider( "value" ) );
   }
 
   // say
