@@ -3,7 +3,7 @@ var remote_hands = {
   },
   get_current_volume: function(callback) {
     // get the current volume
-    $.ajax({
+    jQuery.ajax({
       type: 'get', 
       url: '/volume/volume.json',
       dataType: 'jsonp', 
@@ -12,7 +12,7 @@ var remote_hands = {
   }
 }
 
-$(function() {
+jQuery(function($) {
   // get the current volume
   remote_hands.get_current_volume(
     function(data) {
