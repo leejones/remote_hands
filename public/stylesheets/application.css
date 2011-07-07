@@ -148,6 +148,7 @@ form.vform p.checkbox label { display: inline; }
 
 /* Application
 -------------------------------------------------------------- */
-#wrapper { margin: 0 auto; width: 1024px; }
+#wrapper { margin: 0 auto; width: 1024px; clear: left;}
 #volume { padding: 10px !important; float: left; width: 49%; }
+#volume div.slider { width: 49%; float: left;}
 #history { float: left; width: 49%; }
