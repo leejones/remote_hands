@@ -36,4 +36,8 @@ class Remotehands < Sinatra::Base
       {:volume => get_itunes_volume}.to_json
     end
   end
+
+  post '/applications/launch' do
+    `osascript -e 'tell application "#{params[:name]}" to launch'`
+  end
 end

@@ -40,19 +40,31 @@ jQuery(function($) {
     }
   );
 
-
-  remote_hands.get_itunes_volume(
-    function(data) {
-      if (data['running'] == true) {
-        build_volume_slider({
-          dom_selector: '#itunes-volume',
-          numeric_volume: '#itunes-volume-value',
-          volume: data['volume'],
-          post_url: '/itunes.json'
-        })        
+  function build_itunes_slider() {
+    remote_hands.get_itunes_volume(
+      function(data) {
+        var $launching = $("label[for='itunes-volume-value'] span")
+        if (data['running'] == true || $launching.length) {
+          build_volume_slider({
+            dom_selector: '#itunes-volume',
+            numeric_volume: '#itunes-volume-value',
+            volume: data['volume'],
+            post_url: '/itunes.json'
+          })
+          $launching.remove()
+        } else if (! $("label[for='itunes-volume-value'] span").length) {
+          $("label[for='itunes-volume-value']").append(' <a href="/applications/launch" class="small">launch</a>').click(function(link){
+            $.post(link.target.href, {name: 'iTunes'});
+            $("label[for='itunes-volume-value'] a").remove()
+            $("label[for='itunes-volume-value']").append('<span class="small quiet">launching...</span>')
+            build_itunes_slider();
+            return false;
+          });
+        }
       }
-    }
-  );
+    );
+  }
+  build_itunes_slider();
   
   function build_volume_slider(options) {
     // http://jqueryui.com/demos/slider/
