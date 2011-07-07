@@ -1,5 +1,9 @@
 var remote_hands = {
   poll_volume: function() {
+    // console.log(jQuery( "#slider-vertical" ));
+    this.get_current_volume(function(data) {
+      $( "#slider-vertical" ).slider('value', data['volume']);
+    })
   },
   get_current_volume: function(callback) {
     // get the current volume
@@ -27,6 +31,7 @@ jQuery(function($) {
   		range: "min",
   		min: 0,
   		max: 100,
+  		animate: true,
   		value: options['volume'],
   		slide: function( event, ui ) {
         // triggered on every mouse move during slide
@@ -63,6 +68,6 @@ jQuery(function($) {
     return false;
   });
   
-  setInterval("remote_hands.poll_volume()", 1000);
+  setInterval("remote_hands.poll_volume()", 5000);
   
 });
