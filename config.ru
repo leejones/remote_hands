@@ -1,11 +1,4 @@
-require 'rubygems'
-require 'bundler'
-
-Bundler.require
-
-require 'remotehands'
-require 'vendor/plugins/volume/volume'
-require 'vendor/plugins/say/say'
+require 'remote_hands'
 
 run Rack::URLMap.new \
   '/'       => Remotehands,
