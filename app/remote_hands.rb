@@ -16,7 +16,7 @@ class Remotehands < Sinatra::Base
     }
     if callback = params[:callback]
       content_type :js
-      "#{params[:callback]}(#{data.to_json})"
+      "#{callback}(#{data.to_json})"
     else
       content_type :json
       data.to_json
@@ -27,7 +27,7 @@ class Remotehands < Sinatra::Base
     set_itunes_volume(params[:volume])
     if callback = params[:callback]
       content_type :js
-      "#{params[:callback]}(#{{:volume => get_itunes_volume}.to_json})"
+      "#{callback}(#{{:volume => get_itunes_volume}.to_json})"
     else
       content_type :json
       {:volume => get_itunes_volume}.to_json
