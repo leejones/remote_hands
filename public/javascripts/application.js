@@ -50,11 +50,15 @@ jQuery(function($) {
         // triggered on every mouse move during slide
         $( options['numeric_volume'] ).val( ui.value );
   		},
-  		change: function( event, ui ) {
-        // triggered on slide stop, or if the value is changed programmatically
+      stop: function( event, ui ) {
+        // triggered on slide stop
         $.post(options['post_url'], {volume: ui.value})
         $( options['numeric_volume'] ).val( ui.value );
-  		}
+      },
+      change: function( event, ui ) {
+        // triggered on slide stop, or if the value is changed programmatically
+        $( options['numeric_volume'] ).val( ui.value );
+      }
   	});
     $( options['numeric_volume'] ).val( $( options['dom_selector'] ).slider( "value" ) );
   }
