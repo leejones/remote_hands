@@ -13,9 +13,10 @@ on run argv
    log "Original Volume: " & original_volume
    log "Requested Volume: " & requested_volume
 
+   set current_volume to (get output volume of (get volume settings))
+
    repeat
-    set current_volume to (get output volume of (get volume settings))
-    log "Current Volume: " & current_volume
+     log "Current Volume: " & current_volume
      if current_volume is equal to requested_volume then
        log "Volumes are the same"
        exit repeat
@@ -26,8 +27,10 @@ on run argv
        exit repeat
      else if current_volume is less than requested_volume then
        set volume output volume (current_volume + adjustment_interval)
+       set current_volume to (current_volume + adjustment_interval)
      else if current_volume is greater than requested_volume then
        set volume output volume (current_volume - adjustment_interval)
+       set current_volume to (current_volume - adjustment_interval)
      else
        exit repeat
      end if
@@ -39,4 +42,3 @@ on absolute_value_of(n)
   if n < 0 then set n to -n
   return n
 end absolute_value_of
-
