@@ -1,5 +1,5 @@
 class Volume < Sinatra::Base
-  include SystemVolumeControl
+  include OSX::Volume
 
   get '/volume.json' do
     if callback = params[:callback]
