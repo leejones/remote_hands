@@ -11,3 +11,6 @@ require 'lib/system'
 require 'app/remote_hands'
 require 'app/say'
 require 'app/volume'
+
+APP_ROOT = File.dirname(File.expand_path(__FILE__))
+APPLESCRIPTS_PATH = File.join(APP_ROOT, 'applescripts')
