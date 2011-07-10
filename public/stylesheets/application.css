@@ -148,11 +148,15 @@ form.vform p.checkbox label { display: inline; }
 
 /* Application
 -------------------------------------------------------------- */
+body { font-size: 20px; }
+.wrapper { margin-bottom: 20px; }
 #wrapper { margin: 0 auto; width: 1024px; clear: left;}
 #volume, #history { float: left; width: 48%; }
 #volume div.slider { width: 49%; float: left;}
+input { font-size: 40px; }
 
 /* say tweaks */
 
 #say-box input.zomg { margin-bottom: 40px; }
-
+#zomg-box { margin: 0 auto; width: 1024px; }
+#say-box input.zomg { width: 95%; }
