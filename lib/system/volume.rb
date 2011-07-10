@@ -1,6 +1,6 @@
 module SystemVolumeControl
   def set_volume(value)
-    `osascript -e 'set volume output volume #{value}'`
+    `osascript #{APPLESCRIPTS_PATH}/fade_system_volume_to.scpt '#{value}'`
   end
 
   def current_volume
