@@ -52,7 +52,6 @@ class Remotehands < Sinatra::Base
         ws.onclose = function() { debug("socket closed"); };
         ws.onopen = function() {
           debug("connected...");
-          ws.send("hello server");
         };
         $('#message-box').submit(function(value){
           var $input = $('input', this);
