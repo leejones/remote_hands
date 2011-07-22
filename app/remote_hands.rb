@@ -47,6 +47,7 @@ class Remotehands < Sinatra::Base
       $(document).ready(function(){
         function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
 
+        // # TODO: use hostname and/or make configurable
         ws = new WebSocket("ws://127.0.0.1:8080");
         ws.onmessage = function(evt) { $("#msg").append("<p>"+evt.data+"</p>"); };
         ws.onclose = function() { debug("socket closed"); };
