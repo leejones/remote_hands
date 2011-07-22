@@ -14,3 +14,5 @@ require 'app/volume'
 
 APP_ROOT = File.dirname(File.expand_path(__FILE__))
 APPLESCRIPTS_PATH = File.join(APP_ROOT, 'applescripts')
+
+$redis = Redis.new(:host => '127.0.0.1', :post => 6379)

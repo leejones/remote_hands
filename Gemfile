@@ -1,6 +1,8 @@
 source :rubygems
 
 gem 'sinatra', '1.2.3'
+gem 'redis', '2.2.1'
+gem 'SystemTimer', '1.2.3'
 
 # volume
 gem 'json', '1.5.3'
