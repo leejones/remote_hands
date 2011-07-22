@@ -37,4 +37,45 @@ class Remotehands < Sinatra::Base
   post '/applications/launch' do
     `osascript -e 'tell application "#{params[:name]}" to launch'`
   end
+  
+  get '/ws' do
+        html = <<-EOS
+<html>
+  <head>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+    <script>
+      $(document).ready(function(){
+        function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
+
+        ws = new WebSocket("ws://127.0.0.1:8080");
+        ws.onmessage = function(evt) { $("#msg").append("<p>"+evt.data+"</p>"); };
+        ws.onclose = function() { debug("socket closed"); };
+        ws.onopen = function() {
+          debug("connected...");
+          ws.send("hello server");
+        };
+        $('#message-box').submit(function(value){
+          var $input = $('input', this);
+          var message = $input.val();
+          ws.send(message);
+          $input.val('');
+          return false;
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Websockets Spike</h1>
+    <form id="message-box">
+      <label for="message-text">Message: </label>
+      <input type="text" name="message-text" id="message-text" />
+    </form>
+    <h2>Messages</h2>
+    <div id="msg"></div>
+    <h2>Debugger</h2>
+    <div id="debug"></div>
+  </body>
+</html>
+EOS
+  end
 end

@@ -7,6 +7,10 @@ gem 'SystemTimer', '1.2.3'
 # volume
 gem 'json', '1.5.3'
 
+# socket server
+gem 'thin', '1.2.11'
+gem 'em-websocket', '0.3.0'
+
 group :development do
   gem 'shotgun', '0.9'
   gem 'ruby-debug', '0.10.4'
