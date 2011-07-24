@@ -4,7 +4,7 @@ gem 'sinatra', '1.2.3'
 gem 'redis', '2.2.1'
 gem 'SystemTimer', '1.2.3'
 
-# volume
+# volume & socket server
 gem 'json', '1.5.3'
 
 # socket server
