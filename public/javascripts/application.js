@@ -94,7 +94,7 @@ var remote_hands = {
       var slider_volume = $( "#system-volume" ).slider('value');
       var system_volume = data['volume'];
       if (slider_volume != system_volume) {
-        $( "#system-volume" ).slider('value', data['volume']);
+        $( "#system-volume" ).slider('value', system_volume);
       }
     })
   },
@@ -111,7 +111,7 @@ var remote_hands = {
       var slider_volume = $( "#itunes-volume" ).slider('value');
       var itunes_volume = data['volume'];
       if (slider_volume != itunes_volume) {
-        $( "#itunes-volume" ).slider('value', data['volume']);
+        $( "#itunes-volume" ).slider('value', itunes_volume);
       }
     })
   },
