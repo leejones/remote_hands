@@ -3,7 +3,6 @@ EventMachine.run do
 
   EM.add_periodic_timer(60) do
     client_messages = [
-      { :type => 'status', :number_of_clients_connected => CLIENTS.length }.to_json,
       { :type => 'osx', :volume => current_volume }.to_json
     ]
     CLIENTS.each do |s|
