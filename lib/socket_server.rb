@@ -32,27 +32,22 @@ EventMachine.run do
 
   Thread.new do
     redis = Redis.new(:host => '127.0.0.1', :post => 6379, :timeout => 0)
-    redis.subscribe('remote_hands_osx') do |on|
+    redis.psubscribe('remote_hands:*') do |on|
        # When a message is published to 'remote_hands'
-      on.message do |channel, raw_message|
+      on.pmessage do |pattern, channel, message|
         # Send out the message on each open socket
-        data = JSON.parse(raw_message)
+        data = JSON.parse(message)
         case channel
-          when /remote_hands_osx/
-            puts data.inspect
+          when /remote_hands:osx/
             new_volume = data['volume']
-            EM.defer do
-              set_volume(new_volume)
-            end
 
-            EM.defer do
-              client_message = { :type => 'osx', :volume => new_volume }.to_json
-              CLIENTS.each do |s|
-                s.send(client_message)
-              end
+            client_message = { :type => 'osx', :volume => new_volume }.to_json
+            CLIENTS.each do |s|
+              s.send(client_message)
             end
+            
+            set_volume(new_volume)        
         end
-        puts 'done with case'
       end
     end
   end
