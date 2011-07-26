@@ -18,8 +18,12 @@ EventMachine.run do
           s.send({ :type => 'log', :message => "#{CLIENTS.length} client(s) connected" }.to_json)
         end
       end
-      client.onmessage do |msg|
-        redis.publish 'remote_hands:chat', msg
+      client.onmessage do |message|
+        data = JSON.parse(message)
+        case data['type']
+        when /osx/
+          redis.publish 'remote_hands:osx', {:volume => data['volume']}.to_json
+        end
       end
       client.onclose do
         CLIENTS.delete client

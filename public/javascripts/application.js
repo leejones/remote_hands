@@ -6,7 +6,8 @@ jQuery(function($) {
         dom_selector: '#system-volume',
         numeric_volume: '#system-volume-value',
         volume: data['volume'],
-        post_url: '/volume/volume.json'
+        post_url: '/volume/volume.json',
+        use_websockets: true
       })
     }
   );
@@ -52,7 +53,11 @@ jQuery(function($) {
   		},
       stop: function( event, ui ) {
         // triggered on slide stop
-        $.post(options['post_url'], {volume: ui.value})
+        if (options.use_websockets && remote_hands.websockets_are_supported())
+          ws.send("{\"type\": \"osx\", \"volume\": "+ui.value+"}")
+        else {
+         $.post(options['post_url'], {volume: ui.value});
+        }
         $( options['numeric_volume'] ).val( ui.value );
       },
       change: function( event, ui ) {
@@ -89,6 +94,7 @@ jQuery(function($) {
     // # TODO: use hostname and/or make configurable
     var ws = new WebSocket("ws://127.0.0.1:8080");
     ws.onmessage = function(event) {
+      // replace with $.parseJSON()
       var data = eval("(" + event.data + ")");
       switch(data.type) {
         case 'osx':
