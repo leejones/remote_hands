@@ -10,7 +10,6 @@ on run argv
    set adjustment_interval to 5
    set delay_between_adjustments_in_seconds to 0.20
 
-   log "Original Volume: " & original_volume
    log "Requested Volume: " & requested_volume
 
    set current_volume to (get output volume of (get volume settings))
