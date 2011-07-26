@@ -83,12 +83,45 @@ jQuery(function($) {
     return false;
   });
   
-  setInterval("remote_hands.poll_volume()", 5000);
+  if (remote_hands.websockets_are_supported()) {
+    function debug(str){ $("#debugger").append("<p>"+str+"</p>"); };
+
+    // # TODO: use hostname and/or make configurable
+    var ws = new WebSocket("ws://127.0.0.1:8080");
+    ws.onmessage = function(event) {
+      console.log(event.data)
+      var data = eval("(" + event.data + ")");
+      switch(data.type) {
+        case 'osx':
+          var slider_volume = $( "#system-volume" ).slider('value');
+          var system_volume = data.volume;
+          if (slider_volume != system_volume) {
+            $( "#system-volume" ).slider('value', system_volume);
+          }
+          break;
+        case 'log':
+          debug(data.message);
+          break;
+        default:
+          debug(data.message);
+          break;
+      }
+    };
+    ws.onclose = function() { debug("socket closed"); };
+    ws.onopen = function() {
+
+    };
+  } else {
+    setInterval("remote_hands.poll_volume()", 5000);    
+  }
   setInterval("remote_hands.poll_itunes_volume()", 5500);
   
 });
 
 var remote_hands = {
+  websockets_are_supported: function() {
+    return "WebSocket" in window;
+  },
   poll_volume: function() {
     this.get_current_volume(function(data) {
       var slider_volume = $( "#system-volume" ).slider('value');

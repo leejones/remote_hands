@@ -12,8 +12,9 @@ class Volume < Sinatra::Base
   end
   
   post '/volume.json' do
-    # TODO: move to background job
-    set_volume(params[:volume])
+    $redis.publish 'remote_hands_osx', {:volume => params[:volume]}.to_json
+    # # TODO: move to background job
+    # set_volume(params[:volume])
     if callback = params[:callback]
       content_type :js
       "#{params[:callback]}(#{{:volume => current_volume}.to_json})"

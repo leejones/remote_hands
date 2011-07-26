@@ -1,5 +1,4 @@
-require 'osx/volume'
-
 module OSX
 end
 
+require 'osx/volume'
