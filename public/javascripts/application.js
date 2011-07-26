@@ -101,7 +101,7 @@ jQuery(function($) {
     };
 
     // # TODO: use hostname and/or make configurable
-    var ws = new WebSocket("ws://127.0.0.1:8080");
+    var ws = new WebSocket("ws://"+websocket_url);
     ws.onmessage = function(event) {
       data = $.parseJSON(event.data)
       switch(data.type) {

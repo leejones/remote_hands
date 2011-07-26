@@ -13,7 +13,7 @@ EventMachine.run do
   Thread.new do
     redis = Redis.new(:host => '127.0.0.1', :post => 6379, :timeout => 0)
     # TODO: use hostname and/or make configurable
-    EventMachine::WebSocket.start(:host => '0.0.0.0', :port => 8080) do |client|
+    EventMachine::WebSocket.start(:host => WEBSOCKETS_CONFIG[:host], :port => WEBSOCKETS_CONFIG[:port]) do |client|
       client.onopen do
         client.send({ :type => 'osx', :volume => current_volume }.to_json)
         CLIENTS << client

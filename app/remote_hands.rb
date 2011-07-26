@@ -38,6 +38,12 @@ class Remotehands < Sinatra::Base
     `osascript -e 'tell application "#{params[:name]}" to launch'`
   end
   
+  get '/javascripts/config.js' do
+    websocket_url = "#{WEBSOCKETS_CONFIG[:host]}:#{WEBSOCKETS_CONFIG[:port]}"
+    content_type :js
+    "var websocket_url='#{websocket_url}';"
+  end
+  
   get '/ws' do
         html = <<-EOS
 <html>
