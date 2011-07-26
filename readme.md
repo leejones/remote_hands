@@ -7,12 +7,12 @@ A Web Interface for Stuff on Your Mac
     bundle install
     
     # start Sinatra
-    bundle exec shotgun
+    bundle exec shotgun --host [your hostname]
     
     # start the EventMachine loop
     bundle exec thin start -R socket-server-config.ru
 
-    # app binds to your hostname (not localhost) by default
+    # websocket binds to your hostname (not localhost) by default
 
 ## Dependencies
 
