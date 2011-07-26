@@ -89,10 +89,10 @@ jQuery(function($) {
     // # TODO: use hostname and/or make configurable
     var ws = new WebSocket("ws://127.0.0.1:8080");
     ws.onmessage = function(event) {
-      console.log(event.data)
       var data = eval("(" + event.data + ")");
       switch(data.type) {
         case 'osx':
+          // TODO refactor out duplication
           var slider_volume = $( "#system-volume" ).slider('value');
           var system_volume = data.volume;
           if (slider_volume != system_volume) {
