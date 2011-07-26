@@ -14,8 +14,9 @@ EventMachine.run do
       client.onopen do
         client.send({ :type => 'osx', :volume => current_volume }.to_json)
         CLIENTS << client
+        client_message = { :type => 'status', :number_of_clients_connected => CLIENTS.length }.to_json
         CLIENTS.each do |s|
-          s.send({ :type => 'log', :message => "#{CLIENTS.length} client(s) connected" }.to_json)
+          s.send(client_message)
         end
       end
       client.onmessage do |message|
@@ -27,8 +28,9 @@ EventMachine.run do
       end
       client.onclose do
         CLIENTS.delete client
+        client_message = { :type => 'status', :number_of_clients_connected => CLIENTS.length }.to_json
         CLIENTS.each do |s|
-          s.send({ :type => 'log', :message => "#{CLIENTS.length} client(s) connected" }.to_json)
+          s.send(client_message)
         end
       end
     end

@@ -87,15 +87,23 @@ jQuery(function($) {
      });
     return false;
   });
-  
+
   if (remote_hands.websockets_are_supported()) {
     function debug(str){ $("#debugger").append("<p>"+str+"</p>"); };
+    function update_number_of_clients(num) {
+      if (num > 1) {
+        var message = num+" people connected"
+      }
+      else {
+        var message = num+" person connected";
+      }
+      $("#number-of-clients").html(message);
+    };
 
     // # TODO: use hostname and/or make configurable
     var ws = new WebSocket("ws://127.0.0.1:8080");
     ws.onmessage = function(event) {
-      // replace with $.parseJSON()
-      var data = eval("(" + event.data + ")");
+      data = $.parseJSON(event.data)
       switch(data.type) {
         case 'osx':
           // TODO refactor out duplication
@@ -105,11 +113,14 @@ jQuery(function($) {
             $( "#system-volume" ).slider('value', system_volume);
           }
           break;
+        case 'status':
+          update_number_of_clients(data.number_of_clients_connected);
+          break;
         case 'log':
           debug(data.message);
           break;
         default:
-          debug(data.message);
+          debug('unknown data received: '+data);
           break;
       }
     };
