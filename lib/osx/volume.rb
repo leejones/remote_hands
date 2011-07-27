@@ -4,7 +4,7 @@ module OSX
     extend self
 
     def volume=(value)
-      `osascript #{APPLESCRIPTS_PATH}/fade_system_volume_to.scpt '#{value}'`
+      `osascript #{APPLESCRIPTS_PATH}/osx/fade_volume_to.scpt '#{value}'`
     end
 
     def volume

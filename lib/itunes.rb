@@ -3,12 +3,12 @@ module  Itunes
   extend self
 
   def running?
-    `osascript #{APPLESCRIPTS_PATH}/is_app_running.scpt iTunes`.chomp == 'true'
+    `osascript #{APPLESCRIPTS_PATH}/osx/is_app_running.scpt iTunes`.chomp == 'true'
   end
   
   def volume
     if running?
-      `osascript #{APPLESCRIPTS_PATH}/get_itunes_volume.scpt`.chomp.to_i
+      `osascript #{APPLESCRIPTS_PATH}/itunes/volume.scpt`.chomp.to_i
     else
       nil
     end
@@ -16,7 +16,7 @@ module  Itunes
   
   def volume=(value)
     if running?
-      `osascript #{APPLESCRIPTS_PATH}/set_itunes_volume.scpt #{value}`
+      `osascript #{APPLESCRIPTS_PATH}/itunes/set_volume.scpt #{value}`
     else
       false
     end
