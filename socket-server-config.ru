@@ -16,5 +16,6 @@ WEBSOCKETS_CONFIG = {
 
 $LOAD_PATH.unshift ::File.expand_path(::File.dirname(__FILE__) + '/lib')
 
-require 'lib/osx'
-require 'lib/socket_server'
+require 'osx'
+require 'osx/volume'
+require 'socket_server'

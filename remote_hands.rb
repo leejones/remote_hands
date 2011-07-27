@@ -7,8 +7,9 @@ require 'yaml'
 
 $LOAD_PATH.unshift ::File.expand_path(::File.dirname(__FILE__) + '/lib')
 
-require 'lib/itunes'
-require 'lib/osx'
+require 'itunes'
+require 'osx'
+require 'osx/volume'
 
 require 'app/remote_hands'
 require 'app/say'
