@@ -1,5 +1,4 @@
 class Remotehands < Sinatra::Base
-  include Itunes::Helper
   dir = File.dirname(File.expand_path(__FILE__))
   set :views,  "#{dir}/../views"
   set :public, "#{dir}/../public"
@@ -11,8 +10,8 @@ class Remotehands < Sinatra::Base
   
   get '/itunes.json' do
     data = {
-      :running => itunes_running?,
-      :volume => get_itunes_volume
+      :running => Itunes.running?,
+      :volume => Itunes.volume
     }
     if callback = params[:callback]
       content_type :js
@@ -24,13 +23,13 @@ class Remotehands < Sinatra::Base
   end
 
   post '/itunes.json' do
-    set_itunes_volume(params[:volume])
+    Itunes.volume = params[:volume]
     if callback = params[:callback]
       content_type :js
-      "#{callback}(#{{:volume => get_itunes_volume}.to_json})"
+      "#{callback}(#{{:volume => Itunes.volume}.to_json})"
     else
       content_type :json
-      {:volume => get_itunes_volume}.to_json
+      {:volume => Itunes.volume}.to_json
     end
   end
 
