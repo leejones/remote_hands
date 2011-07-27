@@ -1,9 +1,7 @@
 EventMachine.run do
-  include OSX::Volume
-
   EM.add_periodic_timer(60) do
     client_messages = [
-      { :type => 'osx', :volume => current_volume }.to_json
+      { :type => 'osx', :volume => OSX::Volume.volume }.to_json
     ]
     CLIENTS.each do |s|
       client_messages.each {|message| s.send(message)}
@@ -15,7 +13,7 @@ EventMachine.run do
     # TODO: use hostname and/or make configurable
     EventMachine::WebSocket.start(:host => WEBSOCKETS_CONFIG[:host], :port => WEBSOCKETS_CONFIG[:port]) do |client|
       client.onopen do
-        client.send({ :type => 'osx', :volume => current_volume }.to_json)
+        client.send({ :type => 'osx', :volume => OSX::Volume.volume }.to_json)
         CLIENTS << client
         client_message = { :type => 'status', :number_of_clients_connected => CLIENTS.length }.to_json
         CLIENTS.each do |s|
@@ -55,7 +53,7 @@ EventMachine.run do
               s.send(client_message)
             end
             
-            set_volume(new_volume)        
+            OSX::Volume.volume = new_volume
         end
       end
     end
