@@ -15,3 +15,7 @@ group :development do
   gem 'shotgun', '0.9'
   gem 'ruby-debug', '0.10.4'
 end
+
+group :test do
+  gem 'rspec'
+end

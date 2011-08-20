@@ -10,6 +10,7 @@ $LOAD_PATH.unshift ::File.expand_path(::File.dirname(__FILE__) + '/lib')
 require 'itunes'
 require 'osx'
 require 'osx/volume'
+require 'osx/say'
 
 require 'app/remote_hands'
 require 'app/say'
