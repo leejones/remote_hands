@@ -10,7 +10,7 @@ describe 'say' do
       OSX::Say.sanitize('`').should eql('')
     end
     
-    it 'should allow leters' do
+    it 'should allow letters' do
       OSX::Say.sanitize('abcdefghijklmnopqrstuvwxy').should eql('abcdefghijklmnopqrstuvwxy')
       OSX::Say.sanitize('ABCDEFGHIJKLMNOPQRSTUVWXY').should eql('ABCDEFGHIJKLMNOPQRSTUVWXY')
     end
